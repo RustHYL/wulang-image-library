@@ -14,7 +14,12 @@
       </a-col>
       <a-col flex="120px">
         <div class="user-login-status">
-          <a-button type="primary" href="/user/login">登录</a-button>
+          <div v-if="loginUserStore.loginUser.id">
+            {{ loginUserStore.loginUser.userName ?? '无名' }}
+          </div>
+          <div v-else>
+            <a-button type="primary" href="/user/login">登录</a-button>
+          </div>
         </div>
       </a-col>
     </a-row>
@@ -24,6 +29,9 @@
 import { h, ref } from 'vue'
 import { HomeOutlined } from '@ant-design/icons-vue'
 import { MenuProps } from 'ant-design-vue'
+
+
+const loginUserStore = useLoginUserStore()
 
 const items = ref<MenuProps['items']>([
   {
@@ -45,6 +53,7 @@ const items = ref<MenuProps['items']>([
 ])
 
 import { useRouter } from "vue-router";
+import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
 const router = useRouter();
 
 // 路由跳转事件
